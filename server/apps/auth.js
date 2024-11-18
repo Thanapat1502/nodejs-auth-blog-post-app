@@ -62,6 +62,10 @@ authRouter.post("/login", async (req, res) => {
       expiresIn: "900000",
     }
   );
+  return res.json({
+    message: "login successfully",
+    token,
+  });
 });
 
 export default authRouter;
