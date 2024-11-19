@@ -28,7 +28,7 @@ authRouter.post("/register", async (req, res) => {
 // 🐨 Todo: Exercise #3
 // ให้สร้าง API เพื่อเอาไว้ Login ตัว User ตามตารางที่ออกแบบไว้
 authRouter.post("/login", async (req, res) => {
-  const user = db.collection("users").find({
+  const user = await db.collection("users").findOne({
     username: req.body.username,
   });
 
@@ -64,7 +64,7 @@ authRouter.post("/login", async (req, res) => {
   );
   return res.json({
     message: "login successfully",
-    token,
+    token: `${token}`
   });
 });
 
