@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/authentication";
 
 import usePosts from "../hooks/usePosts";
 import getPublishedDate from "../utils/getPublishedDate";
 
 function HomePage() {
   const navigate = useNavigate();
+  const { logout } = useAuth();
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState("");
   const [keywords, setKeywords] = useState("");
@@ -23,15 +25,19 @@ function HomePage() {
         <button
           onClick={() => {
             navigate("/post/create");
-          }}
-        >
+          }}>
           Create Post
         </button>
         {/* 
            // 🐨 Todo: Exercise #7
           //  นำ Function `logout` จาก AuthContext มา Execute ใน Prop `onClick`
         */}
-        <button>Logout</button>
+        <button
+          onClick={() => {
+            logout();
+          }}>
+          Logout
+        </button>
       </div>
       <div className="search-box-container">
         <div className="search-box">
@@ -54,8 +60,7 @@ function HomePage() {
               id="status"
               name="status"
               value={status}
-              onChange={(e) => setStatus(e.target.value)}
-            >
+              onChange={(e) => setStatus(e.target.value)}>
               <option disabled value="">
                 -- Select a status --
               </option>
@@ -81,22 +86,19 @@ function HomePage() {
               <div className="post-actions">
                 <button
                   className="view-button"
-                  onClick={() => navigate(`/post/view/${post._id}`)}
-                >
+                  onClick={() => navigate(`/post/view/${post._id}`)}>
                   View post
                 </button>
                 <button
                   className="edit-button"
-                  onClick={() => navigate(`/post/edit/${post._id}`)}
-                >
+                  onClick={() => navigate(`/post/edit/${post._id}`)}>
                   Edit post
                 </button>
               </div>
 
               <button
                 className="delete-button"
-                onClick={() => deletePost(post._id)}
-              >
+                onClick={() => deletePost(post._id)}>
                 x
               </button>
             </div>
